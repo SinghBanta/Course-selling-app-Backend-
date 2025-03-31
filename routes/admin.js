@@ -1,38 +1,66 @@
-const adminRouter=require('express').Router();
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const adminRouter = express.Router();
+const { adminModel } = require("../db");
+const JWT_ADMIN_PASSWORD = "Banta@2001";
 
-adminRouter.post('/signin',function(req,res){
-    res.json({
-        message:"signin"
-    })
+adminRouter.post("/signup", async function (req, res) {
+  const { email, password, firstName, lastName } = req.body;
+
+  await adminModel.create({
+    email,
+    password,
+    firstName,
+    lastName,
+  });
+
+  res.json({
+    message: "Signup successful",
+  });
 });
 
+adminRouter.post("/signin", async function (req, res) {
+  const { email, password } = req.body;
 
-adminRouter.post('/signup',function(req,res){
+  const admin = await adminModel.findOne({
+    email: email,
+    password: password,
+  });
+
+  if (admin) {
+    const token = jwt.sign(
+      {
+        id: admin._id,
+      },
+      JWT_ADMIN_PASSWORD
+    );
+
     res.json({
-        message:"signup"
-    })
+      token: token,
+    });
+  } else {
+    res.status(401).json({
+      message: "Invalid email or password",
+    });
+  }
 });
 
-
-adminRouter.post('/',function(req,res){
-    res.json({
-        message:"add new courses"
-    })
+adminRouter.post("/", function (req, res) {
+  res.json({
+    message: "add new courses",
+  });
 });
 
-
-
-adminRouter.put('/',function(req,res){
-    res.json({
-        message:"update courses"
-    })
+adminRouter.put("/", function (req, res) {
+  res.json({
+    message: "update courses",
+  });
 });
 
-
-adminRouter.get('/bulk',function(req,res){
-    res.json({
-        message:"see all courses"
-    })
+adminRouter.get("/bulk", function (req, res) {
+  res.json({
+    message: "see all courses",
+  });
 });
 
-module.exports={ adminRouter };
+module.exports = { adminRouter };
