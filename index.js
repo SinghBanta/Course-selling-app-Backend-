@@ -1,5 +1,5 @@
 require('dotenv').config();
-console.log(process.env.MONGO_URL);
+// console.log(process.env.MONGO_URL);
 const express=require('express');
 const app=express();
 const { userRouter }=require('./routes/user');
