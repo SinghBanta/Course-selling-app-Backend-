@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(process.env.MONGO_URL);
 const express=require('express');
 const app=express();
 const { userRouter }=require('./routes/user');
@@ -13,7 +15,7 @@ app.use('/api/v1/admin',adminRouter);
 
 
 async function main(){
-await mongoose.connect("mongoString/course-app");
+await mongoose.connect(process.env.MONGO_URL);
 app.listen(3000);
 console.log("Server is running on port 3000 ");
 }
