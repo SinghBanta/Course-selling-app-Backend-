@@ -1,7 +1,9 @@
 const userRouter = require("express").Router();
-const { userModel } = require("../db");
+const { userModel,purchaseModel, courseModel } = require("../db");
 const jwt = require("jsonwebtoken");
-const {JWT_USER_PASSWORD}=require('../config')
+const {JWT_USER_PASSWORD}=require('../config');
+const { userMiddleware } = require("../middleware/user");
+
 // const JWT_USER_PASSWORD = "Banta@2001";
 
 userRouter.post("/signup", async function (req, res) {
@@ -18,10 +20,10 @@ userRouter.post("/signup", async function (req, res) {
   });
 });
 
-userRouter.post("/signin", function (req, res) {
+userRouter.post("/signin", async function (req, res) {
   const { email, password } = req.body;
 
-  const user = userModel.findOne({
+  const user = await userModel.findOne({
     email: email,
     password: password,
   });
@@ -44,9 +46,21 @@ userRouter.post("/signin", function (req, res) {
   }
 });
 
-userRouter.get("/purchases", function (req, res) {
+userRouter.get("/purchases",userMiddleware, async function (req, res) {
+  const userId=req.userId;
+
+  const purchases=await purchaseModel.find({
+    userId,
+  })
+
+  const coursesData=await courseModel.find({
+      _id:{ $in: purchases.map(x => x.courseId)}
+  })
+
+
   res.json({
-    "message": "Purchases"
+    purchases,
+    coursesData
   });
 });
 
