@@ -17,7 +17,7 @@ This repository contains the backend code for the Course Selling App. The backen
 
 3. Set up environment variables:
     - Create a `.env` file in the root directory.
-    - Add the required environment variables (e.g., database connection string, API keys).
+    - Add the required environment variables (e.g., database connection string, JWT secret keys).
 
 ## Usage
 
