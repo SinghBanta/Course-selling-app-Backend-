@@ -5,7 +5,7 @@ const { adminModel, courseModel } = require("../db");
 const { JWT_ADMIN_PASSWORD } = require("../config");
 const {adminMiddleware}=require('../middleware/admin')
 
-// const JWT_ADMIN_PASSWORD = "Banta@2002";
+
 
 adminRouter.post("/signup", async function (req, res) {
   const { email, password, firstName, lastName } = req.body;

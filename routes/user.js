@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const {JWT_USER_PASSWORD}=require('../config');
 const { userMiddleware } = require("../middleware/user");
 
-// const JWT_USER_PASSWORD = "Banta@2001";
+
 
 userRouter.post("/signup", async function (req, res) {
   const { email, password, firstName, lastName } = req.body;
