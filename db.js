@@ -26,13 +26,22 @@ const courseSchema=new Schema({
     description:{type:String},
     price:{type:Number},
     imageUrl:{type:String},
-    creatorId:ObjectId
+    creatorId:{
+        type:ObjectId,
+        ref:"Admin"
+    }
 });
 
 
 const purchaseSchema=new Schema({
-    userId:ObjectId,
-    courseId:ObjectId
+    userId:{
+        type:ObjectId,
+        ref:"User"
+    },
+    courseId:{
+        type:ObjectId,
+        ref:"Course"
+    }
 
 });
 

@@ -68,15 +68,16 @@ adminRouter.post("/course", adminMiddleware, async function (req, res) {
 
 adminRouter.put("/course",adminMiddleware, async function (req, res) {
   const adminId = req.userId;
+   
 
-  const { title, description, imageUrl, price } = req.body;
+  const { title, description, imageUrl, price, courseId } = req.body;
 
   const course = await courseModel.updateOne(
     {
       _id: courseId,
       creatorId:adminId
     },
-    { title: title, description: description, imageUrl: imageUrl, price: price }
+    { title: title, description: description, imageUrl: imageUrl, price: price }//what to update
   );
   res.json({
     message: "update course successfully1",
