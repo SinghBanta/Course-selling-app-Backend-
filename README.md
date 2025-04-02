@@ -23,7 +23,7 @@ This repository contains the backend code for the Course Selling App. The backen
 
 1. Start the development server:
     ```bash
-    npm run dev
+    npm start
     ```
 
 2. The server will start on `http://localhost:3000`.
